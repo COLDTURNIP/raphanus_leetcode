@@ -3,9 +3,12 @@
 #![feature(proc_macro_hygiene)]
 #![feature(box_patterns)]
 
-pub use leetcode_prelude::{linkedlist, btree, leetcode_test, vec_string, ListNode, TreeNode, assert_eq_sorted};
+pub use leetcode_prelude::{
+    assert_eq_sorted, btree, leetcode_test, linkedlist, vec_string, ListNode, TreeNode,
+};
 
 pub mod p1;
+pub mod p15;
 pub mod p18;
 pub mod p24;
 pub mod p25;
