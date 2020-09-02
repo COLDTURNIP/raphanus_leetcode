@@ -8,7 +8,7 @@ Given a linked list, swap every two adjacent nodes and return its head.
 
 You may not modify the values in the list's nodes, only nodes itself may be changed.
 
- 
+
 
 Example:
 
@@ -24,7 +24,7 @@ Example:
 //   pub val: i32,
 //   pub next: Option<Box<ListNode>>
 // }
-// 
+//
 // impl ListNode {
 //   #[inline]
 //   fn new(val: i32) -> Self {
@@ -65,16 +65,19 @@ impl Solution {
                     set_next(&mut sec, fst);
                     cur.as_mut().unwrap().next = sec;
                     cur = cur.unwrap().next.as_mut().unwrap().next.as_mut();
-                },
+                }
                 None => {
                     if let Some(inner) = cur.as_mut() {
                         inner.next = fst;
                     }
                     break;
-                },
+                }
             };
         }
-        match base { Some(base) => base.next, None => None }
+        match base {
+            Some(base) => base.next,
+            None => None,
+        }
     }
 }
 
@@ -82,23 +85,23 @@ use crate::ListNode;
 pub struct Solution;
 
 #[cfg(test)]
-mod test {
-    use crate::linkedlist;
+mod tests {
+    extern crate test;
     use super::Solution;
+    use crate::linkedlist;
 
     #[test]
     fn test() {
-        assert_eq!(Solution::swap_pairs(linkedlist![1, 2, 3, 4]), linkedlist![2, 1, 4, 3]);
-        assert_eq!(Solution::swap_pairs(linkedlist![1, 2, 3]), linkedlist![2, 1, 3]);
+        assert_eq!(
+            Solution::swap_pairs(linkedlist![1, 2, 3, 4]),
+            linkedlist![2, 1, 4, 3]
+        );
+        assert_eq!(
+            Solution::swap_pairs(linkedlist![1, 2, 3]),
+            linkedlist![2, 1, 3]
+        );
         assert_eq!(Solution::swap_pairs(linkedlist![]), linkedlist![]);
     }
-}
-
-#[cfg(test)]
-mod bench {
-    extern crate test;
-    use crate::linkedlist;
-    use super::Solution;
 
     #[bench]
     fn bench(b: &mut test::Bencher) {

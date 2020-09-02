@@ -32,7 +32,7 @@ impl Solution {
         let mut search_low = 0usize;
         let mut search_high = nums.len();
         let mut search_mid = (search_low + search_high) / 2;
-        if nums[search_low] > target || nums[search_high-1] < target {
+        if nums[search_low] > target || nums[search_high - 1] < target {
             return vec![-1, -1];
         }
         while search_low < search_high {
@@ -41,8 +41,8 @@ impl Solution {
                 Ordering::Equal => {
                     search_mid = mid;
                     break;
-                },
-                Ordering::Less => search_low = mid+1,
+                }
+                Ordering::Less => search_low = mid + 1,
                 Ordering::Greater => search_high = mid,
             }
         }
@@ -59,7 +59,7 @@ impl Solution {
                 if nums[mid] == target {
                     search_high = mid;
                 } else {
-                    low = mid+1;
+                    low = mid + 1;
                 }
             }
         }
@@ -67,39 +67,37 @@ impl Solution {
         let mut high = search_high;
         {
             let mut search_low = search_mid;
-            while nums[high-1] != target && search_low < high {
+            while nums[high - 1] != target && search_low < high {
                 let mid = (search_low + high) / 2;
                 if nums[mid] == target {
-                    search_low = mid+1;
+                    search_low = mid + 1;
                 } else {
                     high = mid;
                 }
             }
         }
-        vec![low as i32, high as i32 -1]
+        vec![low as i32, high as i32 - 1]
     }
 }
 
 pub struct Solution;
 
-mod internal {
-}
-
 #[cfg(test)]
-mod test {
+mod tests {
+    extern crate test;
     use super::Solution;
 
     #[test]
     fn test() {
-        assert_eq!(Solution::search_range(vec![5, 7, 7, 8, 8, 10], 8), vec![3, 4]);
-        assert_eq!(Solution::search_range(vec![5, 7, 7, 8, 8, 10], 6), vec![-1, -1]);
+        assert_eq!(
+            Solution::search_range(vec![5, 7, 7, 8, 8, 10], 8),
+            vec![3, 4]
+        );
+        assert_eq!(
+            Solution::search_range(vec![5, 7, 7, 8, 8, 10], 6),
+            vec![-1, -1]
+        );
     }
-}
-
-#[cfg(test)]
-mod bench {
-    extern crate test;
-    use super::Solution;
 
     #[bench]
     fn bench(b: &mut test::Bencher) {

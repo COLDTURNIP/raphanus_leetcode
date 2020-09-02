@@ -31,6 +31,7 @@ pub struct Solution;
 
 #[cfg(test)]
 mod tests {
+    extern crate test;
     use super::Solution;
 
     #[test]
@@ -38,12 +39,6 @@ mod tests {
         let question = vec![2, 7, 11, 15];
         assert_eq!(Solution::two_sum(question, 9), vec![0, 1]);
     }
-}
-
-#[cfg(test)]
-mod bench {
-    extern crate test;
-    use super::Solution;
 
     #[bench]
     fn bench(b: &mut test::Bencher) {

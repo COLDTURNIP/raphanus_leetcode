@@ -34,7 +34,7 @@ impl Solution {
     pub fn search_insert(nums: Vec<i32>, target: i32) -> i32 {
         use std::cmp::Ordering;
         if nums.is_empty() || target <= nums[0] {
-            return 0
+            return 0;
         }
         let mut low = 0usize;
         let mut high = nums.len();
@@ -44,8 +44,8 @@ impl Solution {
                 Ordering::Equal => {
                     low = mid;
                     break;
-                },
-                Ordering::Less => low = mid+1,
+                }
+                Ordering::Less => low = mid + 1,
                 Ordering::Greater => high = mid,
             }
         }
@@ -55,11 +55,9 @@ impl Solution {
 
 pub struct Solution;
 
-mod internal {
-}
-
 #[cfg(test)]
-mod test {
+mod tests {
+    extern crate test;
     use super::Solution;
 
     #[test]
@@ -71,12 +69,6 @@ mod test {
         assert_eq!(Solution::search_insert(vec![1, 3, 5, 6, 11, 19, 31], 16), 5);
         assert_eq!(Solution::search_insert(vec![1, 3, 5, 6, 11, 19, 31], 11), 4);
     }
-}
-
-#[cfg(test)]
-mod bench {
-    extern crate test;
-    use super::Solution;
 
     #[bench]
     fn bench(b: &mut test::Bencher) {

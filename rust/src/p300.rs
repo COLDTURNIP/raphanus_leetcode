@@ -35,11 +35,9 @@ impl Solution {
 
 pub struct Solution;
 
-mod internal {
-}
-
 #[cfg(test)]
 mod test {
+    extern crate test;
     use super::Solution;
 
     #[test]
@@ -49,12 +47,6 @@ mod test {
         assert_eq!(Solution::length_of_lis(vec![1, 2, 3, 4, 5]), 5);
         assert_eq!(Solution::length_of_lis(vec![10, 9, 2, 5, 3, 7, 101, 18]), 4);
     }
-}
-
-#[cfg(test)]
-mod bench {
-    extern crate test;
-    use super::Solution;
 
     #[bench]
     fn bench(b: &mut test::Bencher) {

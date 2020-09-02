@@ -14,69 +14,73 @@ A solution set is:
 ]
 
 */
+use std::cmp::Ordering::{Equal, Greater, Less};
+
 impl Solution {
     pub fn four_sum(nums: Vec<i32>, target: i32) -> Vec<Vec<i32>> {
-        let mut nums = nums.clone();
-        nums.sort();
-       let results = internal::pick_n(Vec::with_capacity(4), &nums[..], target, 4);
-       results.collect()
+        let mut nums = nums;
+        nums.sort_unstable();
+        let mut result = Self::n_sum(&nums, target, 4, 4);
+        result.iter_mut().for_each(|v| v.reverse());
+        result
     }
-}
 
-mod internal {
-    use std::iter;
-
-    struct NumsIter<'a>(&'a [i32]);
-
-    impl<'a> Iterator for NumsIter<'a> {
-        type Item = &'a [i32];
-
-        fn next(&mut self) -> Option<&'a [i32]> {
-            let ret = self.0;
-            if ret.is_empty() {
-                return None
-            }
-            let first = ret[0];
-            loop {
-                match self.0.split_first() {
-                    Some((&head, tail)) => {
-                        if head != first {
-                            break;
-                        } else {
-                            self.0 = tail;
-                        }
-                    },
-                    None => break,
+    fn two_sum(nums: &[i32], target: i32, cap: usize) -> Vec<Vec<i32>> {
+        let mut ret = Vec::with_capacity(nums.len() / 2);
+        if nums.len() < 2 {
+            return ret;
+        }
+        let mut nums = Vec::from(nums);
+        nums.sort_unstable();
+        let mut liter = nums.iter().enumerate();
+        let mut riter = nums.iter().enumerate().rev();
+        let mut last_found = None;
+        let mut left = liter.next();
+        let mut right = riter.next();
+        loop {
+            match (left, right) {
+                (Some((_, &lval)), Some((_, &rval))) if last_found == Some((lval, rval)) => {
+                    left = liter.next();
+                    right = riter.next();
                 }
+                (Some((i, &lval)), Some((j, &rval))) if i < j => match target.cmp(&(lval + rval)) {
+                    Less => right = riter.next(),
+                    Greater => left = liter.next(),
+                    Equal => {
+                        let mut result = Vec::with_capacity(cap);
+                        result.push(rval);
+                        result.push(lval);
+                        ret.push(result);
+                        last_found = Some((lval, rval));
+                        left = liter.next();
+                        right = riter.next();
+                    }
+                },
+                _ => break,
             }
-            return Some(ret);
         }
+        ret
     }
 
-    pub fn pick_n<'a>(picked_nums: Vec<i32>, nums: &'a [i32], target: i32, to_pick: i32) -> Box<dyn Iterator<Item=Vec<i32>> + 'a> {
-        //eprintln!("picked_nums {:?}, nums {:?}, target {}, to_pick {}", picked_nums, nums, target, to_pick);
-        if nums.is_empty() || to_pick < 1 {
-            return Box::new(iter::empty());
-        }
-        if to_pick == 1 {
-            return if let Ok(_) = nums.binary_search(&target) {
-                let mut ret = picked_nums.clone();
-                ret.push(target);
-                Box::new(iter::once(ret))
-            } else {
-                Box::new(iter::empty())
-            };
-        }
-        return Box::new(NumsIter(nums).flat_map(move |rest: &[i32]| -> Box<dyn Iterator<Item=Vec<i32>>> {
-            //eprintln!("  -> {:?}", rest);
-            if rest.is_empty() {
-                return Box::new(iter::empty());
+    fn n_sum(nums: &[i32], target: i32, n: usize, cap: usize) -> Vec<Vec<i32>> {
+        assert!(n > 1, "invalid n={}", n);
+        assert!(cap >= n, "invalid cap={} < n={}", cap, n);
+        if n == 2 {
+            Self::two_sum(nums, target, cap)
+        } else {
+            let mut ret = Vec::with_capacity(nums.len() * nums.len());
+            let mut prev = None;
+            for (i, &pick) in nums.iter().take(nums.len() - n + 1).enumerate() {
+                if prev == Some(pick) {
+                    continue;
+                }
+                prev = Some(pick);
+                let mut comb = Self::n_sum(&nums[i + 1..], target - pick, n - 1, cap);
+                comb.iter_mut().for_each(|v| v.push(pick));
+                ret.extend(comb);
             }
-            let mut picked_nums = picked_nums.clone();
-            let picked_n: i32 = rest[0];
-            picked_nums.push(picked_n);
-            return pick_n(picked_nums, &rest[1..], target-picked_n, to_pick-1);
-        }));
+            ret
+        }
     }
 }
 
@@ -84,23 +88,20 @@ pub struct Solution;
 
 #[cfg(test)]
 mod tests {
+    extern crate test;
     use super::Solution;
 
     #[test]
     fn test() {
-        let question = vec![1, 0, -1, 0, -2, 2];
-        assert_eq!(Solution::four_sum(question, 0), vec![vec![-2, -1, 1, 2],
-                                                         vec![-2,  0, 0, 2],
-                                                         vec![-1,  0, 0, 1]]);
-        let question = vec![1, -2, -5, -4, -3, 3, 3, 5];
-        assert_eq!(Solution::four_sum(question, -11), vec![vec![-5, -4, -3, 1]]);
+        assert_eq!(
+            Solution::four_sum(vec![1, 0, -1, 0, -2, 2], 0),
+            vec![vec![-2, -1, 1, 2], vec![-2, 0, 0, 2], vec![-1, 0, 0, 1]]
+        );
+        assert_eq!(
+            Solution::four_sum(vec![1, -2, -5, -4, -3, 3, 3, 5], -11),
+            vec![vec![-5, -4, -3, 1]]
+        );
     }
-}
-
-#[cfg(test)]
-mod bench {
-    extern crate test;
-    use super::Solution;
 
     #[bench]
     fn bench(b: &mut test::Bencher) {

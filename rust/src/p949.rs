@@ -35,12 +35,12 @@ impl Solution {
                         let hour = nums[i1] * 10 + nums[i2];
                         let minute = nums[i3] * 10 + nums[i4];
                         if hour < 24 && minute < 60 {
-                            return format!("{:02}:{:02}", hour, minute)
+                            return format!("{:02}:{:02}", hour, minute);
                         }
                     }
                 }
             }
-        };
+        }
         "".to_owned()
     }
 }
@@ -54,9 +54,18 @@ mod tests {
 
     #[test]
     fn test() {
-        assert_eq!(Solution::largest_time_from_digits(vec![1, 2, 3, 4]), "23:41".to_owned());
-        assert_eq!(Solution::largest_time_from_digits(vec![5, 5, 5, 5]), "".to_owned());
-        assert_eq!(Solution::largest_time_from_digits(vec![2, 0, 6, 6]), "06:26".to_owned());
+        assert_eq!(
+            Solution::largest_time_from_digits(vec![1, 2, 3, 4]),
+            "23:41".to_owned()
+        );
+        assert_eq!(
+            Solution::largest_time_from_digits(vec![5, 5, 5, 5]),
+            "".to_owned()
+        );
+        assert_eq!(
+            Solution::largest_time_from_digits(vec![2, 0, 6, 6]),
+            "06:26".to_owned()
+        );
     }
 
     #[bench]
