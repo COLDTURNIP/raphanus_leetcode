@@ -21,27 +21,37 @@ Input: [5,5,5,5]
 Output: ""
 */
 
-// TODO: implement permutation iterator
-
 impl Solution {
     pub fn largest_time_from_digits(a: Vec<i32>) -> String {
-        //let mut nums = a.iter().rev().map(|&n| NumItem(n, false)).collect::<Vec<_>>();
-        let mut nums = a;
-        nums.sort_unstable_by(|a, b| b.cmp(a));
-        for i1 in 0..4 {
-            for i2 in (0..4).filter(|&i| i != i1) {
-                for i3 in (0..4).filter(|&i| i != i1 && i != i2) {
-                    for i4 in (0..4).filter(|&i| i != i1 && i != i2 && i != i3) {
-                        let hour = nums[i1] * 10 + nums[i2];
-                        let minute = nums[i3] * 10 + nums[i4];
-                        if hour < 24 && minute < 60 {
-                            return format!("{:02}:{:02}", hour, minute);
-                        }
-                    }
-                }
+        // Permutation solution:
+        // Heap's algorithm. Refer to component::permutation
+        let mut data = a;
+        let swap_state = &mut [0; 4];
+        let mut max_hour = -1;
+        let mut max_minute = -1;
+        'perm: loop {
+            let hour = data[0] * 10 + data[1];
+            let minute = data[2] * 10 + data[3];
+            if hour < 24 && minute < 60 && hour * 60 + minute > max_hour * 60 + max_minute {
+                max_hour = hour;
+                max_minute = minute;
             }
+
+            let mut i = 1;
+            loop {
+                if i >= swap_state.len() { break 'perm; }
+                if swap_state[i] < i { break; }
+                swap_state[i] = 0;
+                i += 1;
+            }
+            data.swap(i, (i & 1) * swap_state[i]);
+            swap_state[i] += 1;
         }
-        "".to_owned()
+        if max_hour < 0 || max_minute < 0 {
+            "".to_owned()
+        } else {
+            format!("{:02}:{:02}", max_hour, max_minute)
+        }
     }
 }
 
