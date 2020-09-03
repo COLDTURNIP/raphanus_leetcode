@@ -16,7 +16,7 @@ impl<T> PermutationIter<T> {
     pub fn new(data: Vec<T>) -> Self {
         let size = data.len();
         Self {
-            data: data,
+            data,
             swaps: vec![0; size],
             i: 0,
         }
@@ -25,7 +25,8 @@ impl<T> PermutationIter<T> {
 
 impl<T> Iterator for PermutationIter<T>
 where
-T: Clone + Debug {
+    T: Clone + Debug,
+{
     type Item = Vec<T>;
 
     fn next(&mut self) -> Option<Self::Item> {
@@ -33,8 +34,12 @@ T: Clone + Debug {
         // https://en.wikipedia.org/wiki/Heap's_algorithm
         if self.i > 0 {
             loop {
-                if self.i >= self.swaps.len() { return None; }
-                if self.swaps[self.i] < self.i { break; }
+                if self.i >= self.swaps.len() {
+                    return None;
+                }
+                if self.swaps[self.i] < self.i {
+                    break;
+                }
                 self.swaps[self.i] = 0;
                 self.i += 1;
             }

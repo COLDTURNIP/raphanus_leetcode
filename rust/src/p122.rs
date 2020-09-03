@@ -33,7 +33,7 @@ Explanation: Buy on day 1 (price = 1) and sell on day 5 (price = 5),
 
 impl Solution {
     pub fn max_profit(prices: Vec<i32>) -> i32 {
-        return internal::trade_loop(&prices);
+        internal::trade_loop(&prices)
     }
 }
 
@@ -66,7 +66,7 @@ mod internal {
                 }
             }
         }
-        return sum;
+        sum
     }
 }
 

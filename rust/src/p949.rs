@@ -39,8 +39,12 @@ impl Solution {
 
             let mut i = 1;
             loop {
-                if i >= swap_state.len() { break 'perm; }
-                if swap_state[i] < i { break; }
+                if i >= swap_state.len() {
+                    break 'perm;
+                }
+                if swap_state[i] < i {
+                    break;
+                }
                 swap_state[i] = 0;
                 i += 1;
             }
