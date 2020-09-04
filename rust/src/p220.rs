@@ -41,10 +41,14 @@ impl Solution {
         let mut window = VecDeque::<Point>::with_capacity(k);
         let mut num_set = BTreeSet::<Point>::new();
         for (i, n) in nums.into_iter().enumerate() {
-            if num_set.range((
-                Included(Point(n.saturating_sub(t), std::usize::MIN)),
-                Included(Point(n.saturating_add(t), std::usize::MAX)),
-            )).next().is_some() {
+            if num_set
+                .range((
+                    Included(Point(n.saturating_sub(t), std::usize::MIN)),
+                    Included(Point(n.saturating_add(t), std::usize::MAX)),
+                ))
+                .next()
+                .is_some()
+            {
                 // any entry in the current number set falls the range n+-t
                 return true;
             }
