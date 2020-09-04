@@ -8,6 +8,7 @@ pub use leetcode_prelude::{
 };
 
 pub mod p1;
+pub mod p1046;
 pub mod p122;
 pub mod p15;
 pub mod p18;
