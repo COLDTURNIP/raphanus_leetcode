@@ -41,10 +41,10 @@ impl Solution {
         let mut window = VecDeque::<Point>::with_capacity(k);
         let mut num_set = BTreeSet::<Point>::new();
         for (i, n) in nums.into_iter().enumerate() {
-            for _ in num_set.range((
+            if num_set.range((
                 Included(Point(n.saturating_sub(t), std::usize::MIN)),
                 Included(Point(n.saturating_add(t), std::usize::MAX)),
-            )) {
+            )).next().is_some() {
                 // any entry in the current number set falls the range n+-t
                 return true;
             }
@@ -89,7 +89,7 @@ mod tests {
             true
         );
         assert_eq!(
-            Solution::contains_nearby_almost_duplicate(vec![-1, 2147483647], 1, 2147483647),
+            Solution::contains_nearby_almost_duplicate(vec![-1, 2_147_483_647], 1, 2_147_483_647),
             false
         );
     }

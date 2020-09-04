@@ -56,65 +56,18 @@ where
 mod tests {
     extern crate test;
     use super::PermutationIter;
+    use std::collections::HashSet;
 
     #[test]
     fn test_i32() {
-        let mut iter = PermutationIter::new(vec![1, 2, 3, 4]);
-        assert_eq!(iter.next(), Some(vec![1, 2, 3, 4]));
-        assert_eq!(iter.next(), Some(vec![2, 1, 3, 4]));
-        assert_eq!(iter.next(), Some(vec![3, 1, 2, 4]));
-        assert_eq!(iter.next(), Some(vec![1, 3, 2, 4]));
-        assert_eq!(iter.next(), Some(vec![2, 3, 1, 4]));
-        assert_eq!(iter.next(), Some(vec![3, 2, 1, 4]));
-        assert_eq!(iter.next(), Some(vec![4, 2, 1, 3]));
-        assert_eq!(iter.next(), Some(vec![2, 4, 1, 3]));
-        assert_eq!(iter.next(), Some(vec![1, 4, 2, 3]));
-        assert_eq!(iter.next(), Some(vec![4, 1, 2, 3]));
-        assert_eq!(iter.next(), Some(vec![2, 1, 4, 3]));
-        assert_eq!(iter.next(), Some(vec![1, 2, 4, 3]));
-        assert_eq!(iter.next(), Some(vec![1, 3, 4, 2]));
-        assert_eq!(iter.next(), Some(vec![3, 1, 4, 2]));
-        assert_eq!(iter.next(), Some(vec![4, 1, 3, 2]));
-        assert_eq!(iter.next(), Some(vec![1, 4, 3, 2]));
-        assert_eq!(iter.next(), Some(vec![3, 4, 1, 2]));
-        assert_eq!(iter.next(), Some(vec![4, 3, 1, 2]));
-        assert_eq!(iter.next(), Some(vec![4, 3, 2, 1]));
-        assert_eq!(iter.next(), Some(vec![3, 4, 2, 1]));
-        assert_eq!(iter.next(), Some(vec![2, 4, 3, 1]));
-        assert_eq!(iter.next(), Some(vec![4, 2, 3, 1]));
-        assert_eq!(iter.next(), Some(vec![3, 2, 4, 1]));
-        assert_eq!(iter.next(), Some(vec![2, 3, 4, 1]));
-        assert_eq!(iter.next(), None);
+        let iter = PermutationIter::new(vec![1, 2, 3, 4]);
+        assert_eq!(iter.collect::<HashSet<Vec<i32>>>().len(), 4 * 3 * 2);
     }
 
     #[test]
     fn test_char() {
-        let mut iter = PermutationIter::new("abcd".chars().collect());
-        assert_eq!(iter.next(), Some(vec!['a', 'b', 'c', 'd']));
-        assert_eq!(iter.next(), Some(vec!['b', 'a', 'c', 'd']));
-        assert_eq!(iter.next(), Some(vec!['c', 'a', 'b', 'd']));
-        assert_eq!(iter.next(), Some(vec!['a', 'c', 'b', 'd']));
-        assert_eq!(iter.next(), Some(vec!['b', 'c', 'a', 'd']));
-        assert_eq!(iter.next(), Some(vec!['c', 'b', 'a', 'd']));
-        assert_eq!(iter.next(), Some(vec!['d', 'b', 'a', 'c']));
-        assert_eq!(iter.next(), Some(vec!['b', 'd', 'a', 'c']));
-        assert_eq!(iter.next(), Some(vec!['a', 'd', 'b', 'c']));
-        assert_eq!(iter.next(), Some(vec!['d', 'a', 'b', 'c']));
-        assert_eq!(iter.next(), Some(vec!['b', 'a', 'd', 'c']));
-        assert_eq!(iter.next(), Some(vec!['a', 'b', 'd', 'c']));
-        assert_eq!(iter.next(), Some(vec!['a', 'c', 'd', 'b']));
-        assert_eq!(iter.next(), Some(vec!['c', 'a', 'd', 'b']));
-        assert_eq!(iter.next(), Some(vec!['d', 'a', 'c', 'b']));
-        assert_eq!(iter.next(), Some(vec!['a', 'd', 'c', 'b']));
-        assert_eq!(iter.next(), Some(vec!['c', 'd', 'a', 'b']));
-        assert_eq!(iter.next(), Some(vec!['d', 'c', 'a', 'b']));
-        assert_eq!(iter.next(), Some(vec!['d', 'c', 'b', 'a']));
-        assert_eq!(iter.next(), Some(vec!['c', 'd', 'b', 'a']));
-        assert_eq!(iter.next(), Some(vec!['b', 'd', 'c', 'a']));
-        assert_eq!(iter.next(), Some(vec!['d', 'b', 'c', 'a']));
-        assert_eq!(iter.next(), Some(vec!['c', 'b', 'd', 'a']));
-        assert_eq!(iter.next(), Some(vec!['b', 'c', 'd', 'a']));
-        assert_eq!(iter.next(), None);
+        let iter = PermutationIter::new("abcd".chars().collect());
+        assert_eq!(iter.collect::<HashSet<Vec<char>>>().len(), 4 * 3 * 2);
     }
 
     #[bench]
