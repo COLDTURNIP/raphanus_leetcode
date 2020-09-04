@@ -12,6 +12,7 @@ pub mod p2;
 pub mod p3;
 pub mod p6;
 pub mod p7;
+pub mod p8;
 
 pub mod p15;
 pub mod p18;
