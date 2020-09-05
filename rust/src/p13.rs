@@ -134,7 +134,6 @@ mod tests {
         Solution::roman_to_int("  MCMXCIV".to_owned());
     }
 
-
     #[bench]
     fn bench(b: &mut test::Bencher) {
         b.iter(|| Solution::roman_to_int("MCMXCIV".to_owned()))
