@@ -45,6 +45,7 @@ pub mod p53;
 pub mod p54;
 pub mod p55;
 pub mod p56;
+pub mod p59;
 
 pub mod p122;
 pub mod p220;
