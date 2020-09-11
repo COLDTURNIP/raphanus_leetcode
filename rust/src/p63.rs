@@ -32,8 +32,6 @@ Example 1:
     2. Down -> Down -> Right -> Right
 */
 
-use std::collections::HashSet;
-
 impl Solution {
     pub fn unique_paths_with_obstacles(obstacle_grid: Vec<Vec<i32>>) -> i32 {
         if obstacle_grid.is_empty() || obstacle_grid[0].is_empty() {
@@ -43,32 +41,17 @@ impl Solution {
         let max_col = obstacle_grid[0].len();
         let max_move = max_row - 1 + max_col - 1;
         let mut map = obstacle_grid;
-        let mut obstacle = HashSet::new();
-        for (y, row) in map.iter_mut().enumerate() {
-            for (x, val) in row.iter_mut().enumerate() {
-                if *val == 1 {
-                    obstacle.insert((x, y));
-                    *val = 0;
-                }
-            }
-        }
-
-        // TODO: need to optimize the position calculation
+        // loop to tranfer obstacle_grid into map of reachable path counters
         for mv in 0..=max_move {
-            for x in 0..=mv {
+            for x in mv.saturating_sub(max_row - 1)..=mv.min(max_col - 1) {
                 let y = mv - x;
-                if x >= max_col || y >= max_row || obstacle.contains(&(x, y)) {
-                    continue;
-                }
-                if x == 0 && y == 0 {
-                    map[y][x] = 1;
-                } else if x == 0 {
-                    map[y][x] = map[y - 1][x];
-                } else if y == 0 {
-                    map[y][x] = map[y][x - 1];
-                } else {
-                    map[y][x] = map[y - 1][x] + map[y][x - 1];
-                }
+                map[y][x] = match (x, y) {
+                    (x, y) if map[y][x] == 1 => 0,
+                    (0, 0) => 1,
+                    (0, y) => map[y - 1][0],
+                    (x, 0) => map[0][x - 1],
+                    (x, y) => map[y - 1][x] + map[y][x - 1],
+                };
             }
         }
         map[max_row - 1][max_col - 1]
@@ -84,7 +67,7 @@ mod tests {
     use super::Solution;
 
     #[test]
-    fn test_3_2() {
+    fn test_3x3_possible() {
         assert_eq!(
             Solution::unique_paths_with_obstacles(vec![
                 vec![0, 0, 0],
@@ -92,6 +75,26 @@ mod tests {
                 vec![0, 0, 0]
             ]),
             2
+        );
+    }
+
+    #[test]
+    fn test_3x3_impossible() {
+        assert_eq!(
+            Solution::unique_paths_with_obstacles(vec![
+                vec![0, 0, 0],
+                vec![0, 1, 0],
+                vec![1, 0, 1]
+            ]),
+            0
+        );
+    }
+
+    #[test]
+    fn test_impossible() {
+        assert_eq!(
+            Solution::unique_paths_with_obstacles(vec![vec![1, 0, 0]]),
+            0
         );
     }
 
