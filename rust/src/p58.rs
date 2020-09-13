@@ -26,7 +26,9 @@ impl Solution {
                 (' ', false) => {}
                 (' ', true) => break,
                 (_, true) => {
-                    ret.as_mut().map(|n| *n += 1);
+                    if let Some(n) = ret.as_mut() {
+                        *n += 1
+                    }
                 }
                 (_, false) => ret = Some(1),
             }
