@@ -74,6 +74,7 @@ pub mod p83;
 pub mod p86;
 pub mod p88;
 pub mod p89;
+pub mod p96;
 pub mod p98;
 
 pub mod p100;
