@@ -17,53 +17,30 @@ For example, given n = 3, a solution set is:
 ]
 */
 
-use std::collections::{HashMap, HashSet};
-
-struct SolutionCache(HashMap<i32, HashSet<String>>);
-
-impl SolutionCache {
-    fn new() -> Self {
-        let mut cache = HashMap::new();
-        cache.insert(0, HashSet::new());
-        cache.insert(
-            1,
-            vec!["()".to_string()]
-                .into_iter()
-                .collect::<HashSet<String>>(),
-        );
-        Self(cache)
-    }
-
-    fn get_solution(&mut self, n: i32) -> HashSet<String> {
-        match self.0.get(&n) {
-            Some(comb) => comb.clone(),
-            None => {
-                let mut comb = HashSet::new();
-                for sub in self.get_solution(n - 1) {
-                    println!("pushing wrapped: ({})", sub);
-                    comb.insert(format!("({})", sub));
-                }
-                for a in 1..n {
-                    let head_comb = self.get_solution(a);
-                    let tail_comb = self.get_solution(n - a);
-                    for head in head_comb.iter() {
-                        for tail in tail_comb.iter() {
-                            println!("pushing combined: {}+{}", head, tail);
-                            comb.insert(format!("{}{}", head, tail));
-                        }
-                    }
-                }
-                self.0.insert(n, comb.clone());
-                comb
-            }
-        }
-    }
-}
+use std::collections::VecDeque;
 
 impl Solution {
     pub fn generate_parenthesis(n: i32) -> Vec<String> {
-        let mut cache = SolutionCache::new();
-        cache.get_solution(n).into_iter().collect()
+        if n < 1 {
+            return Vec::new();
+        }
+        let mut ans: VecDeque<(i32, i32, String)> = VecDeque::with_capacity(1 << n as usize);
+        ans.push_back((0, 0, String::new()));
+        for _ in 1..=n as usize * 2 {
+            for _ in 0..ans.len() {
+                let (lc, rc, mut comb) = ans.pop_front().unwrap();
+                if rc < lc {
+                    let mut comb = comb.clone();
+                    comb.push(')');
+                    ans.push_back((lc, rc + 1, comb));
+                }
+                if lc < n {
+                    comb.push('(');
+                    ans.push_back((lc + 1, rc, comb));
+                }
+            }
+        }
+        ans.into_iter().map(|t| t.2).collect()
     }
 }
 
