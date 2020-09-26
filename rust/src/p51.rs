@@ -43,9 +43,9 @@ impl Solution {
         Self::place_queesn(
             n,
             &mut Vec::new(),
-            &mut repeat(false).take(n * 2).collect::<Vec<bool>>(),
-            &mut repeat(false).take(n * 2).collect::<Vec<bool>>(),
-            &mut repeat(false).take(n * 2).collect::<Vec<bool>>(),
+            &mut repeat(false).take(n * 2 - 1).collect::<Vec<bool>>(),
+            &mut repeat(false).take(n * 2 - 1).collect::<Vec<bool>>(),
+            &mut repeat(false).take(n * 2 - 1).collect::<Vec<bool>>(),
             &mut ans,
         );
         ans
@@ -65,8 +65,8 @@ impl Solution {
             return;
         }
         for x in 0..n {
-            let d_idx = (x + y) % (n * 2);
-            let a_idx = (n + x - y) % (n * 2);
+            let d_idx = (x + y) % (n * 2 - 1);
+            let a_idx = (n + x - y) % (n * 2 - 1);
             if !xset[x] && !dset[d_idx] && !aset[a_idx] {
                 lines.push(x);
                 xset[x] = true;
