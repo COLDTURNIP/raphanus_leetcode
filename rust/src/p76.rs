@@ -63,7 +63,9 @@ impl Solution {
                 };
             }
         }
-        ans.and_then(|rng| s.get(rng)).map(|s| s.to_string()).unwrap_or_else(String::new)
+        ans.and_then(|rng| s.get(rng))
+            .map(|s| s.to_string())
+            .unwrap_or_else(String::new)
     }
 }
 
