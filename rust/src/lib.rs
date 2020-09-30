@@ -63,6 +63,7 @@ pub mod p57;
 pub mod p58;
 pub mod p59;
 pub mod p60;
+pub mod p61;
 pub mod p62;
 pub mod p63;
 pub mod p64;
