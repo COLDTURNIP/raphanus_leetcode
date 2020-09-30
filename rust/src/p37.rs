@@ -36,9 +36,12 @@ impl Solution {
     const INT_TO_CHAR: &'static [char] = &['1', '2', '3', '4', '5', '6', '7', '8', '9'];
     const BSIZE: usize = 9;
     pub fn solve_sudoku(board: &mut Vec<Vec<char>>) {
-        let mut row_filled: Vec<Vec<bool>> = repeat_with(|| vec![false; 9]).take(Self::BSIZE).collect();
-        let mut col_filled: Vec<Vec<bool>> = repeat_with(|| vec![false; 9]).take(Self::BSIZE).collect();
-        let mut box_filled: Vec<Vec<bool>> = repeat_with(|| vec![false; 9]).take(Self::BSIZE).collect();
+        let mut row_filled: Vec<Vec<bool>> =
+            repeat_with(|| vec![false; 9]).take(Self::BSIZE).collect();
+        let mut col_filled: Vec<Vec<bool>> =
+            repeat_with(|| vec![false; 9]).take(Self::BSIZE).collect();
+        let mut box_filled: Vec<Vec<bool>> =
+            repeat_with(|| vec![false; 9]).take(Self::BSIZE).collect();
         let mut to_fill = Vec::<(usize, usize)>::new();
         for (ri, row) in row_filled.iter_mut().enumerate() {
             for (ci, col) in col_filled.iter_mut().enumerate() {
