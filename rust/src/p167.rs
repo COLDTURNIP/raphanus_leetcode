@@ -40,18 +40,20 @@ Constraints:
     - -1000 <= target <= 1000
 */
 
-use std::collections::HashMap;
+use std::cmp::Ordering::{Equal, Greater, Less};
 
 impl Solution {
     pub fn two_sum(numbers: Vec<i32>, target: i32) -> Vec<i32> {
-        let mut seen = HashMap::new();
-        for (i, n) in numbers.into_iter().enumerate() {
-            if let Some(&past_i) = seen.get(&(target - n)) {
-                return vec![past_i as i32 + 1, i as i32 + 1];
-            }
-            seen.insert(n, i);
+        let len = numbers.len();
+        let (mut lb, mut rb) = (0, len - 1);
+        while lb < rb {
+            match target.cmp(&(numbers[lb] + numbers[rb])) {
+                Less => rb -= 1,
+                Greater => lb += 1,
+                Equal => return vec![lb as i32 + 1, rb as i32 + 1],
+            };
         }
-        unreachable!();
+        unreachable!()
     }
 }
 
