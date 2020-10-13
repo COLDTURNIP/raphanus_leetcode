@@ -112,6 +112,7 @@ pub mod p220;
 pub mod p300;
 pub mod p414;
 pub mod p459;
+pub mod p605;
 pub mod p665;
 pub mod p763;
 pub mod p905;
