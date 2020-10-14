@@ -37,22 +37,23 @@ Constraints:
     - 0 <= a, b, c <= 1000
 */
 
-use std::collections::HashMap;
+use std::collections::BTreeMap;
+use std::ops::Bound::Included;
 
 impl Solution {
     pub fn count_good_triplets(arr: Vec<i32>, a: i32, b: i32, c: i32) -> i32 {
-        let mut pick_a: HashMap<i32, i32> = HashMap::new();
-        let mut pick_ab: HashMap<(i32, i32), i32> = HashMap::new();
+        let mut pick_a: BTreeMap<i32, i32> = BTreeMap::new();
+        let mut pick_ab: BTreeMap<(i32, i32), i32> = BTreeMap::new();
         let mut ans = 0;
         for n in arr.into_iter() {
             // handle k
-            for (comb, cnt) in pick_ab.iter() {
+            for (comb, cnt) in pick_ab.range((Included((n - c, n - b)), Included((n + c, n + b)))) {
                 if (comb.0 - n).abs() <= c && (comb.1 - n).abs() <= b {
                     ans += cnt;
                 }
             }
             // handle j
-            for (&ni, cnt) in pick_a.iter_mut() {
+            for (&ni, cnt) in pick_a.range_mut((Included(n - a), Included(n + a))) {
                 if (ni - n).abs() <= a {
                     *pick_ab.entry((ni, n)).or_insert(0) += *cnt;
                 }
