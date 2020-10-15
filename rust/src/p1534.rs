@@ -48,8 +48,7 @@ impl Solution {
                 if (ni - nj).abs() > a {
                     continue;
                 }
-                for k in j + 1..len {
-                    let nk = arr[k];
+                for nk in arr.iter().take(len).skip(j + 1) {
                     if (nj - nk).abs() <= b && (ni - nk).abs() <= c {
                         ans += 1;
                     }
