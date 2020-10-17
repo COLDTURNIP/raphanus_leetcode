@@ -124,6 +124,7 @@ pub mod p949;
 pub mod p969;
 
 pub mod p1046;
+pub mod p1346;
 pub mod p1534;
 
 pub mod component;
