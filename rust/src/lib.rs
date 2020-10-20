@@ -119,6 +119,7 @@ pub mod p605;
 pub mod p665;
 pub mod p763;
 pub mod p766;
+pub mod p888;
 pub mod p905;
 pub mod p914;
 pub mod p941;
