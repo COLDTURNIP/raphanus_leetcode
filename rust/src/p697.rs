@@ -14,7 +14,7 @@ Example 1:
 
     Input: nums = [1,2,2,3,1]
     Output: 2
-    Explanation: 
+    Explanation:
         The input array has a degree of 2 because both elements 1 and 2 appear twice.
         Of the subarrays that have the same degree:
         [1, 2, 2, 3, 1], [1, 2, 2, 3], [2, 2, 3, 1], [1, 2, 2], [2, 2, 3], [2, 2]
@@ -24,7 +24,7 @@ Example 2:
 
     Input: nums = [1,2,2,3,1,4,2]
     Output: 6
-    Explanation: 
+    Explanation:
         The degree is 3 because the element 2 is repeated 3 times.
         So [2,2,3,1,4,2] is the shortest subarray, therefore returning 6.
 
@@ -34,8 +34,8 @@ Constraints:
     - nums[i] will be an integer between 0 and 49,999.
 */
 
-use std::collections::HashMap;
 use std::cmp::Ordering::{Equal, Greater};
+use std::collections::HashMap;
 
 impl Solution {
     pub fn find_shortest_sub_array(nums: Vec<i32>) -> i32 {
@@ -52,9 +52,9 @@ impl Solution {
                 Greater => {
                     max_c = c;
                     min_len = end - start;
-                },
+                }
                 Equal => min_len = min_len.min(end - start),
-                _ => {},
+                _ => {}
             }
         }
         min_len as i32 + 1
@@ -70,12 +70,15 @@ mod tests {
 
     #[test]
     fn test_12231() {
-        assert_eq!( Solution::find_shortest_sub_array(vec![1, 2, 2, 3, 1]), 2);
+        assert_eq!(Solution::find_shortest_sub_array(vec![1, 2, 2, 3, 1]), 2);
     }
 
     #[test]
     fn test_1223142() {
-        assert_eq!( Solution::find_shortest_sub_array(vec![1, 2, 2, 3, 1, 4, 2]), 6);
+        assert_eq!(
+            Solution::find_shortest_sub_array(vec![1, 2, 2, 3, 1, 4, 2]),
+            6
+        );
     }
 
     #[bench]
