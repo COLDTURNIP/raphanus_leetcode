@@ -137,5 +137,6 @@ pub mod p1346;
 pub mod p1470;
 pub mod p1480;
 pub mod p1534;
+pub mod p1550;
 
 pub mod component;
