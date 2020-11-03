@@ -137,6 +137,7 @@ pub mod p950;
 pub mod p969;
 
 pub mod p1046;
+pub mod p1232;
 pub mod p1346;
 pub mod p1470;
 pub mod p1480;
