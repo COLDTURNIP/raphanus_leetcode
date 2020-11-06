@@ -36,18 +36,20 @@ impl Solution {
         maxs.sort_unstable_by(|a, b| b.partial_cmp(a).unwrap());
         for n in nums.into_iter().skip(3) {
             match mins.binary_search(&n) {
-                Ok(i) | Err(i) => {
+                Ok(i) | Err(i) if i < 2 => {
                     mins.insert(i, n);
                     mins.sort_unstable();
                     mins.truncate(2);
                 }
+                _ => (),
             };
             match maxs.binary_search_by(|item| n.cmp(item)) {
-                Ok(i) | Err(i) => {
+                Ok(i) | Err(i) if i < 3 => {
                     maxs.insert(i, n);
                     mins.sort_unstable();
                     maxs.truncate(3);
                 }
+                _ => (),
             }
         }
         (maxs[0] * maxs[1] * maxs[2]).max(maxs[0] * mins[0] * mins[1])
