@@ -70,12 +70,12 @@ mod tests {
 
     #[test]
     fn test_1234() {
-        assert_eq!( Solution::maximum_product(vec![1, 2, 3, 4]), 24)
+        assert_eq!(Solution::maximum_product(vec![1, 2, 3, 4]), 24)
     }
 
     #[test]
     fn test_neg_123() {
-        assert_eq!( Solution::maximum_product(vec![-1, -2, -3]), -6)
+        assert_eq!(Solution::maximum_product(vec![-1, -2, -3]), -6)
     }
 
     #[bench]
