@@ -154,5 +154,6 @@ pub mod p1480;
 pub mod p1534;
 pub mod p1550;
 pub mod p1629;
+pub mod p1641;
 
 pub mod component;
