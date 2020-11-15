@@ -28,22 +28,10 @@ Follow up:
 
 impl Solution {
     pub fn count_bits(num: i32) -> Vec<i32> {
-        let num = num as usize;
-        let mut ans = Vec::with_capacity(num);
+        let mut ans = Vec::with_capacity(num as usize);
         ans.push(0);
-        let mut next_carry = 1;
         for n in 1..=num {
-            let bits = if n == next_carry {
-                next_carry <<= 1;
-                1
-            } else {
-                let last = ans[n - 1];
-                let diff = n ^ (n - 1);
-                let add = ans[diff & n];
-                let sub = ans[diff & (!n)];
-                last + add - sub
-            };
-            ans.push(bits);
+            ans.push(ans[(n & (n - 1)) as usize] + 1);
         }
         ans
     }
@@ -64,6 +52,11 @@ mod tests {
     #[test]
     fn test_5() {
         assert_eq!(Solution::count_bits(5), vec![0, 1, 1, 2, 1, 2]);
+    }
+
+    #[test]
+    fn test_8() {
+        assert_eq!(Solution::count_bits(8), vec![0, 1, 1, 2, 1, 2, 2, 3, 1]);
     }
 
     #[bench]
