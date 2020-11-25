@@ -118,6 +118,7 @@ pub mod p283;
 pub mod p300;
 pub mod p303;
 pub mod p338;
+pub mod p343;
 pub mod p392;
 pub mod p413;
 pub mod p414;
