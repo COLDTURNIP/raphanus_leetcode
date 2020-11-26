@@ -153,6 +153,7 @@ pub mod p941;
 pub mod p949;
 pub mod p950;
 pub mod p969;
+pub mod p983;
 pub mod p985;
 pub mod p989;
 
