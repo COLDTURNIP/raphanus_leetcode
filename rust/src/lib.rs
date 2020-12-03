@@ -163,6 +163,7 @@ pub mod p983;
 pub mod p985;
 pub mod p989;
 
+pub mod p1027;
 pub mod p1046;
 pub mod p1089;
 pub mod p1232;
