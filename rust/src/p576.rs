@@ -36,7 +36,9 @@ impl Solution {
             return 0;
         }
 
-        let cnt_add = |c: &mut i32, n: i32| { *c = (*c + n) % 1_000_000_007; };
+        let cnt_add = |c: &mut i32, n: i32| {
+            *c = (*c + n) % 1_000_000_007;
+        };
 
         let m = m as usize;
         let n = n as usize;
