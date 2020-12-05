@@ -167,6 +167,7 @@ pub mod p989;
 pub mod p1027;
 pub mod p1046;
 pub mod p1089;
+pub mod p1143;
 pub mod p1232;
 pub mod p1346;
 pub mod p1470;
