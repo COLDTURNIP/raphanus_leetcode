@@ -144,6 +144,7 @@ pub mod p697;
 pub mod p712;
 pub mod p714;
 pub mod p724;
+pub mod p740;
 pub mod p746;
 pub mod p747;
 pub mod p763;
