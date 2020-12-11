@@ -22,18 +22,17 @@ impl Solution {
     pub fn count_numbers_with_unique_digits(n: i32) -> i32 {
         assert!(n >= 0 && n <= 8);
         let mut cnt = 1; // the zero
+        let mut pn1 = 1;
+        let mut c9n1 = 1;
         for digit_num in 1..=n {
             // All permutation except starting by zero:
             //   - Permutation without zero: C(9, n) * P(n)
             //   - Permutation with zero: C(9, n-1) * (P(n) - P(n-1))
-            let pn1: i32 = (1..digit_num).product();
             let pn = pn1 * digit_num;
-            let c9n: i32 = {
-                let dn = digit_num.min(9 - digit_num);
-                (9 - dn + 1..=9).product::<i32>() / (1..=dn).product::<i32>()
-            };
-            let c9n1 = c9n * digit_num / (9 - digit_num + 1);
+            let c9n = c9n1 * (9 - digit_num + 1) / digit_num;
             cnt += c9n * pn + c9n1 * (pn - pn1);
+            pn1 = pn;
+            c9n1 = c9n;
         }
         cnt
     }
