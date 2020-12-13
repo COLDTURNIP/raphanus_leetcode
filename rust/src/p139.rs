@@ -38,14 +38,10 @@ impl Solution {
         } else if let Some(result) = breakable[s.len() - 1] {
             return result;
         }
-        let mut result = false;
-        for word in word_dict {
-            if s.starts_with(word) && Self::word_break_impl(&s[word.len()..], word_dict, breakable)
-            {
-                result = true;
-                break;
-            }
-        }
+        let result = word_dict
+            .iter()
+            .filter(|w| s.starts_with(w.as_str()))
+            .any(|w| Self::word_break_impl(&s[w.len()..], word_dict, breakable));
         breakable[s.len() - 1] = Some(result);
         result
     }
