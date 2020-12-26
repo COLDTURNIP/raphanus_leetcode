@@ -30,10 +30,7 @@ impl Solution {
         for n in a {
             for bi in (0..b.len()).rev() {
                 if b[bi] == n {
-                    match_state[bi] = bi
-                        .checked_sub(1)
-                        .map(|i| 1 + match_state[i])
-                        .unwrap_or(1);
+                    match_state[bi] = bi.checked_sub(1).map(|i| 1 + match_state[i]).unwrap_or(1);
                     max_len = max_len.max(match_state[bi]);
                 } else {
                     match_state[bi] = 0;
