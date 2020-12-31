@@ -148,6 +148,7 @@ pub mod p486;
 pub mod p494;
 pub mod p509;
 pub mod p516;
+pub mod p521;
 pub mod p523;
 pub mod p561;
 pub mod p576;
