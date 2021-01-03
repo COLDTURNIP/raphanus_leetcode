@@ -31,7 +31,7 @@ Example 3:
 
     Input: nums = [11,13,15,17]
     Output: 11
-    Explanation: The original array was [11,13,15,17] and it was rotated 4 times. 
+    Explanation: The original array was [11,13,15,17] and it was rotated 4 times.
 
 Constraints:
 
@@ -75,17 +75,17 @@ mod tests {
 
     #[test]
     fn test_case1() {
-        assert_eq!( Solution::find_min(vec![3, 4, 5, 1, 2]), 1);
+        assert_eq!(Solution::find_min(vec![3, 4, 5, 1, 2]), 1);
     }
 
     #[test]
     fn test_case2() {
-        assert_eq!( Solution::find_min(vec![4, 5, 6, 7, 0, 1, 2]), 0);
+        assert_eq!(Solution::find_min(vec![4, 5, 6, 7, 0, 1, 2]), 0);
     }
 
     #[test]
     fn test_case3() {
-        assert_eq!( Solution::find_min(vec![11, 13, 15, 17]), 11);
+        assert_eq!(Solution::find_min(vec![11, 13, 15, 17]), 11);
     }
 
     #[bench]
