@@ -174,6 +174,7 @@ pub mod p583;
 pub mod p605;
 pub mod p621;
 pub mod p628;
+pub mod p636;
 pub mod p638;
 pub mod p643;
 pub mod p646;
