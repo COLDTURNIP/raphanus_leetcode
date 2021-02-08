@@ -61,7 +61,8 @@ impl Solution {
 
     fn split_list(head: Option<Box<ListNode>>) -> (Option<Box<ListNode>>, Option<Box<ListNode>>) {
         let mut pre_head = ListNode { next: head, val: 0 };
-        let head2 = unsafe { // two cursors for performance
+        let head2 = unsafe {
+            // two cursors for performance
             let mut tail1: *mut ListNode = &mut pre_head;
             let mut tail2: *mut ListNode = &mut pre_head;
             loop {
