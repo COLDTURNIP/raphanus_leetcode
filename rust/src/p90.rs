@@ -67,8 +67,20 @@ mod tests {
     use std::collections::HashSet;
 
     fn check(input: Vec<i32>, expect: Vec<Vec<i32>>) {
-        let exact: HashSet<Vec<i32>> = Solution::subsets_with_dup(input).into_iter().collect();
-        let expect: HashSet<Vec<i32>> = expect.into_iter().collect();
+        let exact: HashSet<Vec<i32>> = Solution::subsets_with_dup(input)
+            .into_iter()
+            .map(|mut item| {
+                item.sort_unstable();
+                item
+            })
+            .collect();
+        let expect: HashSet<Vec<i32>> = expect
+            .into_iter()
+            .map(|mut item| {
+                item.sort_unstable();
+                item
+            })
+            .collect();
         assert_eq!(exact, expect);
     }
 

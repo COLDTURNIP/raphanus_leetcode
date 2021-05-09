@@ -63,7 +63,7 @@ impl Solution {
         struct Context<'a> {
             ok_cnt: usize,
             ws_cnt: HashMap<&'a str, usize>,
-        };
+        }
         let mut context = (0..w_len)
             .map(|_| Context {
                 ok_cnt: 0,

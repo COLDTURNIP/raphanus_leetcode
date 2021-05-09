@@ -31,7 +31,7 @@ impl Solution {
             } else {
                 *b
             }
-        };
+        }
 
         let mut nums = nums;
         nums.sort_unstable();

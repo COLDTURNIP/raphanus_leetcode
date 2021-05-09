@@ -78,21 +78,18 @@ mod tests {
     extern crate test;
     use super::Solution;
 
+    fn check(list_a: &[i32], list_b: &[i32]) {
+        let (sum_a, sum_b) = (list_a.iter().sum::<i32>(), list_b.iter().sum::<i32>());
+        let ans = Solution::fair_candy_swap(list_a.into(), list_b.into());
+        assert_eq!(sum_a - ans[0] + ans[1], sum_b - ans[1] + ans[0]);
+    }
+
     #[test]
     fn test_exchange() {
-        assert_eq!(
-            Solution::fair_candy_swap(vec![1, 1], vec![2, 2]),
-            vec![1, 2]
-        );
-        assert_eq!(
-            Solution::fair_candy_swap(vec![1, 2], vec![2, 3]),
-            vec![1, 2]
-        );
-        assert_eq!(Solution::fair_candy_swap(vec![2], vec![1, 3]), vec![2, 3]);
-        assert_eq!(
-            Solution::fair_candy_swap(vec![1, 2, 5], vec![2, 4]),
-            vec![5, 4]
-        );
+        check(&[1, 1], &[2, 2]);
+        check(&[1, 2], &[2, 3]);
+        check(&[2], &[1, 3]);
+        check(&[1, 2, 5], &[2, 4]);
     }
 
     #[bench]

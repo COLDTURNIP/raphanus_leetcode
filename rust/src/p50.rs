@@ -62,7 +62,7 @@ mod tests {
     fn check(x: f64, n: i32, expect: f64) {
         let ans = Solution::my_pow(x, n);
         assert!(
-            (ans - expect).abs() < std::f64::EPSILON,
+            (ans - expect).abs() < 1e-5,
             "ans = {}, expect = {}",
             ans,
             expect
